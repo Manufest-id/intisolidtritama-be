@@ -4,7 +4,6 @@ import cors from "cors";
 const morgan = require("morgan");
 import projectRoutes from "./routes/projectRoutes";
 import authRoutes from "./routes/authRoutes";
-import { verifyAdmin } from "./middlewares/auth";
 
 const app = express();
 const PORT = process.env.PORT || 5009;
