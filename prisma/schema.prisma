@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Category {
+  cinema
+  civil
+  homeliving
+  hotel
+  office
+  restaurant
+  showroom
+}
+
+model Project {
+  id        Int      @id @default(autoincrement())
+  client    String
+  location  String
+  service   String
+  year      Int
+  category  Category
+  images    Image[]
+}
+
+model Image {
+  id        Int      @id @default(autoincrement())
+  url       String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId Int
+}
+
+model Admin {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
+  createdAt DateTime @default(now())
+}
+
+
