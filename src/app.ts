@@ -18,7 +18,7 @@ const allowedOrigins = [
 
 app.use(express.json());
 
-// CORS middleware before your routes
+// CORS middleware before routes
 app.use(
   cors({
     origin: function (origin, callback) {
