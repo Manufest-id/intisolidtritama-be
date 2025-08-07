@@ -9,16 +9,24 @@ import { verifyAdmin } from "./middlewares/auth";
 const app = express();
 const PORT = process.env.PORT || 5009;
 
+const allowedOrigins = [
+  "http://localhost:5173", // Public landing page frontend (dev)
+  "http://localhost:8080", // Admin panel frontend (dev)
+  "https://intisolidtritama.co.id", // Public landing page frontend (production)
+  "https://camel-sweet-lionfish.ngrok-free.app", // Admin panel frontend (production)
+];
+
 app.use(express.json());
+
 // CORS middleware before your routes
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173", // your Vite frontend
-      "http://localhost:8080", // your dev frontend (like Vue, webpack, etc)
-      "https://camel-sweet-lionfish.ngrok-free.app", // your deployed panel (optional)
-    ],
-    credentials: true, // allow cookies or headers to pass
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, false);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error("CORS policy: Not allowed by server"));
+    },
+    credentials: true,
   })
 );
 
@@ -37,6 +45,22 @@ app.use(
     },
   })
 );
+
+// Restrict API usage to only allowed frontend sources
+app.use((req, res, next) => {
+  const origin = req.get("origin") || "";
+  const referer = req.get("referer") || "";
+
+  if (
+    !allowedOrigins.some(
+      (allowed) => origin.startsWith(allowed) || referer.startsWith(allowed)
+    )
+  ) {
+    return res.status(403).json({ error: "Forbidden: Invalid origin" });
+  }
+
+  next();
+});
 
 // Auth Routes
 app.use("/api/auth", authRoutes);
