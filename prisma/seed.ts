@@ -5,6 +5,7 @@ import { main as seedHotel } from "./seed-hotel";
 import { main as seedOffice } from "./seed-office";
 import { main as seedRestaurant } from "./seed-restaurant";
 import { main as seedShowroom } from "./seed-showroom";
+import { main as seedAdmin } from "./seed-admin";
 
 async function main() {
   console.log("Seeding...");
@@ -15,6 +16,7 @@ async function main() {
   await seedOffice();
   await seedRestaurant();
   await seedShowroom();
+  await seedAdmin();
   console.log("✅ Done seeding.");
 }
 
