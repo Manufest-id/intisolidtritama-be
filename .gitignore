@@ -43,4 +43,4 @@ coverage/
 .devcontainer/
 
 # Prisma seed file containing admin credentials
-prisma/seed-user.ts
+
