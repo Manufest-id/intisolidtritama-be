@@ -1,12 +1,12 @@
 import express from "express";
 import path from "path";
 import cors from "cors";
-const morgan = require("morgan");
 import projectRoutes from "./routes/projectRoutes";
 import authRoutes from "./routes/authRoutes";
 
 const app = express();
 const PORT = process.env.PORT || 5009;
+const morgan = require("morgan");
 
 const allowedOrigins = [
   "http://localhost:5173", // Public landing page frontend (dev)
