@@ -12,7 +12,7 @@ const allowedOrigins = [
   "http://localhost:5173", // Public landing page frontend (dev)
   "http://localhost:8080", // Admin panel frontend (dev)
   "https://intisolidtritama.co.id", // Public landing page frontend (production)
-  "https://camel-sweet-lionfish.ngrok-free.app", // Admin panel frontend (production)
+  "https://admin.intisolidtritama.co.id/", // Admin panel frontend (production)
 ];
 
 app.use(express.json());
